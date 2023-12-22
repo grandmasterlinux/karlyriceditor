@@ -178,7 +178,7 @@ bool LyricsEvents::parseEvent( const QString& text, Event * event, QString * err
     }
     else if ( key == "COLOR" )
     {
-        if ( !QColor::isValidColor(value) )
+        if ( !QColor::isValidColorName(value) )
         {
             if ( errmsg )
                 *errmsg = QString("Color %1 is not valid") .arg(value);
