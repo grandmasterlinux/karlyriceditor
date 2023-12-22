@@ -299,7 +299,7 @@ bool FFMpegVideoEncoderPriv::createFile( const QString& fileName )
 
 	// Enable interlacing if needed
 	if ( m_videoformat->flags & VIFO_INTERLACED )
-        videoCodecCtx->flags |= AV_CODEC_FLAG_INTERLACED_DCT;
+        videoCodecCtx->flags |= AV_FRAME_FLAG_INTERLACED;
 
 	// Enable multithreaded encoding: breaks FLV!
 	//videoCodecCtx->thread_count = 4;
@@ -745,7 +745,6 @@ int FFMpegVideoEncoderPriv::encodeImage( const QImage &img, qint64 )
     convertImage_sws( img );
 
     // Setup frame data
-    videoFrame->interlaced_frame = (m_videoformat->flags & VIFO_INTERLACED) ? 1 : 0;
     videoFrame->pts = videoFrameNumber++;
 
     //qDebug("Video time: %g", ((double) videoFrameNumber * videoCodecCtx->time_base.num) / videoCodecCtx->time_base.den );
