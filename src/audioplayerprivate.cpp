@@ -150,7 +150,7 @@ bool AudioPlayerPrivate::openAudio( const QString& filename )
 	for ( unsigned i = 0; i < pFormatCtx->nb_streams; i++ )
 	{
         AVStream *stream = pFormatCtx->streams[i];
-        AVCodec *dec = avcodec_find_decoder( stream->codecpar->codec_id );
+        const AVCodec *dec = avcodec_find_decoder( stream->codecpar->codec_id );
 
         if ( !dec )
             continue;
@@ -252,8 +252,8 @@ bool AudioPlayerPrivate::openAudio( const QString& filename )
         return false;
     }
 
-    av_opt_set_channel_layout( pAudioResampler, "in_channel_layout",  aCodecCtx->channel_layout, 0);
-    av_opt_set_channel_layout( pAudioResampler, "out_channel_layout", AV_CH_LAYOUT_STEREO,  0);
+    av_opt_set_chlayout( pAudioResampler, "in_channel_layout", &aCodecCtx->ch_layout, 0);
+    av_opt_set_chlayout( pAudioResampler, "out_channel_layout", &aCodecCtx->ch_layout, 0);
 
     av_opt_set_int( pAudioResampler, "in_sample_rate",     aCodecCtx->sample_rate, 0);
     av_opt_set_int( pAudioResampler, "out_sample_rate",    aCodecCtx->sample_rate, 0);
