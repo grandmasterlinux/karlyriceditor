@@ -36,10 +36,10 @@ class AudioPlayerPrivate : public QIODevice
 		AudioPlayerPrivate();
 
 		bool	init();
-        bool	openAudio( const QString& filename );
-        void	closeAudio();
+        	bool	openAudio( const QString& filename );
+        	void	closeAudio();
 		void	play();
-        void	resetAudio();
+        	void	resetAudio();
 		void	stop();
 		void	seekTo( qint64 value );
 		bool	isPlaying() const;
@@ -65,33 +65,33 @@ class AudioPlayerPrivate : public QIODevice
 		// Video encoder private class gets direct access to ffmpeg stuff
 		friend class FFMpegVideoEncoderPriv;
 
-		QString			m_errorMsg;
+		QString		m_errorMsg;
 
 		// Access to everything below is guarded by mutex
 		mutable QMutex	m_mutex;
 
-        QAudioSink     * m_audioDevice;
+        	QAudioSink     * m_audioDevice;
 
-        // FFMpeg decoder specific data
+        	// FFMpeg decoder specific data
 		AVFormatContext *pFormatCtx;
-		int				 audioStream;
+		int		audioStream;
 		AVCodecContext  *aCodecCtx;
-		AVCodec         *pCodec;
+		const AVCodec   *pCodec;
 
-        // Software audio resampler
-        SwrContext      *pAudioResampler;
+        	// Software audio resampler
+        	SwrContext      *pAudioResampler;
 
-        QAtomicInt      m_playing;
-		qint64			m_currentTime;
-		qint64			m_totalTime;
+        	QAtomicInt      m_playing;
+		qint64		m_currentTime;
+		qint64		m_totalTime;
 
 		// Currently processed frame
-        AVFrame		*	m_decodedFrame;
+        	AVFrame		* m_decodedFrame;
 
-        // Output buffer keeping the audio data
-        QByteArray		m_sample_buffer;
-        unsigned int	m_sample_buf_size;
-        unsigned int	m_sample_buf_idx;
+        	// Output buffer keeping the audio data
+        	QByteArray	m_sample_buffer;
+        	unsigned int	m_sample_buf_size;
+        	unsigned int	m_sample_buf_idx;
 };
 
 #endif // AUDIOPLAYERPRIVATE_H
