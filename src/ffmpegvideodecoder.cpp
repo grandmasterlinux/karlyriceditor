@@ -30,20 +30,20 @@ class FFMpegVideoDecoderPriv
 	public:
 		unsigned int	skipFrames;
 		AVFormatContext *pFormatCtx;
-		int				 videoStream;
+		int		videoStream;
 		AVCodecContext  *pCodecCtx;
-		AVCodec         *pCodec;
+		const AVCodec   *pCodec;
 		AVFrame         *pFrame;
 		AVFrame         *pFrameRGB;
 		SwsContext      *img_convert_ctx;
 
-		QByteArray		m_buffer;
-		QString			m_errorMsg;
-		int				m_maxFrame;
-		int				m_fps_den;
-		int				m_fps_num;
-		int				m_currentFrameNumber;
-		QImage			m_currentFrameImage;
+		QByteArray	m_buffer;
+		QString		m_errorMsg;
+		int		m_maxFrame;
+		int		m_fps_den;
+		int		m_fps_num;
+		int		m_currentFrameNumber;
+		QImage		m_currentFrameImage;
 };
 
 void FFMpegVideoDecoderPriv::init()
@@ -104,7 +104,7 @@ bool FFMpegVideoDecoder::openFile( const QString& filename, unsigned int seekto 
 	for ( unsigned i = 0; i < d->pFormatCtx->nb_streams; i++ )
 	{
         AVStream *stream = d->pFormatCtx->streams[i];
-        AVCodec *dec = avcodec_find_decoder( stream->codecpar->codec_id );
+        const AVCodec *dec = avcodec_find_decoder( stream->codecpar->codec_id );
 
         if ( !dec )
             continue;
