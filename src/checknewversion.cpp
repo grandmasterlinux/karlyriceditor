@@ -95,7 +95,6 @@ void CheckNewVersion::fatalError( int code )
 
 	closeSocket();
 	emit error( code );
-	deleteLater();
 }
 
 void CheckNewVersion::reportStatus( int status )
